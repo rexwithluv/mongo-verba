@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
+import Quote from './models/Quote.js'
 
 const app = express()
 const PORT = 3000
@@ -16,13 +17,6 @@ try {
 } catch (e) {
   console.log(`Express no logró conectarse con MongoDB: ${e.message}`)
 }
-
-const quoteSchema = new mongoose.Schema({
-  author: { type: String, required: true },
-  quote: { type: String, required: true },
-  note: { type: String, required: false },
-})
-const Quote = mongoose.model('Quotes', quoteSchema)
 
 app.get('/quotes', async (req, res) => {
   try {
