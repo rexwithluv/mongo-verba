@@ -9,19 +9,21 @@ const PORT = 3000
 app.use(express.json())
 app.use(cors())
 
-const mongoUri = 'mongodb://root:root@localhost:27017/admin'
+const mongoUri = 'mongodb://root:root@localhost:27017'
 
 try {
-  await mongoose.connect(mongoUri)
+  await mongoose.connect(mongoUri, { dbName: 'mongo-verba' })
   console.log('Express conectado a MongoDB con éxito!')
 } catch (e) {
   console.log(`Express no logró conectarse con MongoDB: ${e.message}`)
 }
 
-app.get('/quotes', async (req, res) => {
+app.get('/quotes/random', async (req, res) => {
   try {
     const quotes = await Quote.find()
-    res.status(200).json(quotes)
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
+
+    res.status(200).json(randomQuote)
   } catch (e) {
     res.status(500).json({ message: e.message })
   }
