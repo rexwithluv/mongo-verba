@@ -77,10 +77,7 @@
 
     <footer class="footer-section">
       <p class="instructions">Press <span class="key-highlight">Space</span> for random quote</p>
-      <p class="instructions">
-        Press <span class="key-highlight">I</span> to insert new quote /
-        <span class="key-highlight">H</span> to show help
-      </p>
+      <p class="instructions">Press <span class="key-highlight">I</span> to insert new quote</p>
     </footer>
   </div>
 </template>

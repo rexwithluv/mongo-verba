@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { Quote } from '@/models/Quote'
   import { onMounted, onUnmounted, ref, watch, type Ref } from 'vue'
+  import capitalize from '@/helpers/capitalize'
 
   const quote: Ref<Quote | undefined> = defineModel('quote')
 
@@ -8,7 +9,7 @@
   const interval = ref(0)
 
   const getFormatedDate = (): string => {
-    return new Date().toLocaleString('es-ES', {
+    const datetime = new Date().toLocaleString('es-ES', {
       weekday: 'long',
       year: 'numeric',
       month: '2-digit',
@@ -17,6 +18,8 @@
       minute: '2-digit',
       second: '2-digit',
     })
+
+    return capitalize(datetime).replace(/, /g, ' - ').replace(' - ', ', ')
   }
 
   onMounted(async () => {
@@ -81,7 +84,7 @@
   }
 
   .formatted-date {
-    font-size: 0.85rem;
+    font-size: 0.87rem;
     color: var(--text-color-secondary);
     margin: 0;
   }
