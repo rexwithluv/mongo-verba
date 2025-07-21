@@ -9,7 +9,7 @@ const PORT = 3000
 app.use(express.json())
 app.use(cors())
 
-const mongoUri = 'mongodb://root:root@localhost:27017'
+const mongoUri = 'mongodb://root:root@mongodb:27017'
 
 try {
   await mongoose.connect(mongoUri, { dbName: 'mongo-verba' })

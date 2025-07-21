@@ -15,7 +15,10 @@
 
   const createQuote = async () => {
     try {
-      await axios.post('http://localhost:3000/quotes', newQuote.value)
+      await axios.post(
+        `http://localhost:3000/quotes`,
+        newQuote.value,
+      )
       toast.add({
         severity: 'success',
         summary: 'Quote saved',

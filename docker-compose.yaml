@@ -18,3 +18,22 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: root
       ME_CONFIG_MONGODB_URL: mongodb://root:root@mongodb:27017
       ME_CONFIG_BASICAUTH: false
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend-mongo-verba
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend-mongo-verba
+    ports:
+      - 2319:80
+
+networks:
+  mongo-naga-net:

@@ -12,7 +12,9 @@
 
   const getRandomQuote = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/quotes/random')
+      const response = await axios.get(
+        `http://localhost:3000/quotes/random`,
+      )
       return response.data
     } catch (e) {
       console.log(`Error: ${e}`)
