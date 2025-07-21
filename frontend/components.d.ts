@@ -9,6 +9,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Dialog: typeof import('primevue/dialog')['default']
+    HelpDialog: typeof import('./src/components/HelpDialog.vue')['default']
     NewQuoteDialog: typeof import('./src/components/NewQuoteDialog.vue')['default']
     QuotePanel: typeof import('./src/components/QuotePanel.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

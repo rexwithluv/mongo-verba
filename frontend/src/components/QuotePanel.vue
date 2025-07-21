@@ -1,9 +1,8 @@
 <script setup lang="ts">
   import type { Quote } from '@/models/Quote'
-  import axios from 'axios'
-  import { onMounted, onUnmounted, ref, type Ref } from 'vue'
+  import { onMounted, onUnmounted, ref, watch, type Ref } from 'vue'
 
-  const quote: Ref<Quote> = ref({} as Quote)
+  const quote: Ref<Quote | undefined> = defineModel('quote')
 
   const formatedDate: Ref<string> = ref('')
   const interval = ref(0)
@@ -20,18 +19,7 @@
     })
   }
 
-  const getRandomQuote = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/quotes/random')
-      return response.data
-    } catch (e) {
-      console.log(`Error: ${e}`)
-    }
-  }
-
   onMounted(async () => {
-    quote.value = await getRandomQuote()
-
     formatedDate.value = getFormatedDate()
     interval.value = setInterval(() => {
       formatedDate.value = getFormatedDate()
@@ -45,9 +33,17 @@
 
 <template>
   <div>
-    <p>{{ formatedDate }}</p>
-    <p>{{ quote?.quote }}</p>
-    <p>{{ quote?.author }}</p>
-    <p v-if="quote?.note">{{ quote?.note }}</p>
+    <p>
+      {{ formatedDate }}
+    </p>
+    <p>
+      {{ quote?.quote }}
+    </p>
+    <p>
+      {{ quote?.author }}
+    </p>
+    <p v-if="quote?.note">
+      {{ quote?.note }}
+    </p>
   </div>
 </template>

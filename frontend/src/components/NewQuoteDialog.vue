@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <Dialog v-model:visible="isVisible" header="New quote!!" modal dismissableMask>
+  <Dialog v-model:visible="isVisible" header="New quote ^^" modal dismissableMask>
     hola caracola
   </Dialog>
 </template>
