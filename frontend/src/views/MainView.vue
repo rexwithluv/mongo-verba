@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import HelpDialog from '@/components/HelpDialog.vue'
   import NewQuoteDialog from '@/components/NewQuoteDialog.vue'
   import QuotePanel from '@/components/QuotePanel.vue'
   import type { Quote } from '@/models/Quote'
@@ -34,28 +33,22 @@
   const openNewQuoteDialog = () => {
     showNewQuoteDialog.value = true
   }
-  const openHelpDialog = () => {
-    showHelpDialog.value = true
-  }
 
   const handleKeyPress = async (event: KeyboardEvent) => {
-    event.preventDefault()
+    const isDialogActive = showNewQuoteDialog.value || showHelpDialog.value
+    if (isDialogActive) {
+      return
+    }
 
     switch (event.code) {
       case 'KeyI':
+        event.preventDefault()
         openNewQuoteDialog()
         break
 
-      case 'KeyH':
-        openHelpDialog()
-        break
-
-      case 'KeyC':
+      case 'Space':
+        event.preventDefault()
         await changeQuote()
-        break
-
-      default:
-        console.log('No sé que tecla has tocado.')
         break
     }
   }
@@ -70,7 +63,92 @@
 </script>
 
 <template>
-  <NewQuoteDialog v-model:is-visible="showNewQuoteDialog" />
-  <HelpDialog v-model:is-visible="showHelpDialog" />
-  <QuotePanel v-model:quote="quote" />
+  <NewQuoteDialog :is-visible="showNewQuoteDialog" />
+
+  <div class="main-layout">
+    <div class="header-section">
+      <h1>Mongo Verba</h1>
+      <p class="tagline">Developed with <3 by @rexwithluv</p>
+    </div>
+
+    <main class="content-section">
+      <QuotePanel :quote="quote" />
+    </main>
+
+    <footer class="footer-section">
+      <p class="instructions">Press <span class="key-highlight">Space</span> for random quote</p>
+      <p class="instructions">
+        Press <span class="key-highlight">I</span> to insert new quote /
+        <span class="key-highlight">H</span> to show help
+      </p>
+    </footer>
+  </div>
 </template>
+
+<style scoped>
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, var(--surface-a), var(--surface-100));
+    color: var(--text-color);
+    font-family: var(--font-family);
+    overflow: hidden;
+  }
+
+  .header-section {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    color: var(--primary-color);
+  }
+
+  .header-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 2px;
+  }
+
+  .tagline {
+    font-size: 1.2rem;
+    color: var(--text-color-secondary);
+    font-style: italic;
+  }
+
+  .content-section {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .footer-section {
+    text-align: center;
+    padding: 1.5rem 1rem 2rem;
+    background-color: var(--surface-ground);
+    border-top: 1px solid var(--surface-border);
+    font-size: 0.9rem;
+    color: var(--text-color-secondary);
+  }
+
+  .instructions {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .key-highlight {
+    background-color: var(--surface-200);
+    padding: 0.2em 0.5em;
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .footer-text {
+    margin-top: 1rem;
+    font-size: 0.8em;
+    color: var(--surface-400);
+  }
+</style>

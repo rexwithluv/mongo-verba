@@ -14,5 +14,6 @@ declare module 'vue' {
     QuotePanel: typeof import('./src/components/QuotePanel.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Toast: typeof import('primevue/toast')['default']
   }
 }

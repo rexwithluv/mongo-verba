@@ -32,18 +32,122 @@
 </script>
 
 <template>
-  <div>
-    <p>
-      {{ formatedDate }}
-    </p>
-    <p>
-      {{ quote?.quote }}
-    </p>
-    <p>
-      {{ quote?.author }}
-    </p>
-    <p v-if="quote?.note">
-      {{ quote?.note }}
-    </p>
+  <div class="quote-panel">
+    <div class="quote-header">
+      <p class="formatted-date">{{ formatedDate }}</p>
+    </div>
+    <div class="quote-content">
+      <p class="quote-text">{{ quote?.quote }}</p>
+      <p class="quote-author">- {{ quote?.author }}</p>
+      <p v-if="quote?.note" class="quote-note">Nota: {{ quote?.note }}</p>
+    </div>
   </div>
 </template>
+
+<style scoped>
+  .quote-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
+    width: 100%;
+    max-width: 700px;
+    background-color: var(--surface-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-2);
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .quote-header {
+    align-self: flex-end;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .formatted-date {
+    font-size: 0.85rem;
+    color: var(--text-color-secondary);
+    margin: 0;
+  }
+
+  .quote-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
+  .quote-text {
+    font-size: 2.5rem;
+    line-height: 1.4;
+    color: var(--text-color);
+    margin: 0 0 1.5rem 0;
+    font-style: italic;
+  }
+
+  .quote-author {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--surface-border);
+  }
+
+  .quote-note {
+    font-size: 0.9rem;
+    color: var(--text-color-secondary);
+    margin-top: 1rem;
+    font-style: italic;
+    padding: 0.5rem 1rem;
+    background-color: var(--surface-hover);
+    border-radius: var(--border-radius);
+  }
+
+  @media (max-width: 768px) {
+    .quote-panel {
+      min-height: 250px;
+      padding: 1.5rem;
+    }
+    .quote-text {
+      font-size: 1.8rem;
+    }
+    .quote-author {
+      font-size: 1.1rem;
+    }
+    .quote-header {
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .quote-panel {
+      min-height: 200px;
+      padding: 1rem;
+    }
+    .quote-text {
+      font-size: 1.5rem;
+    }
+    .quote-author {
+      font-size: 1rem;
+    }
+  }
+</style>
