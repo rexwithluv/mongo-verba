@@ -34,3 +34,7 @@
 - Add language switching options.
 - Enhance the insert dialog UI.
 - Save and read quotes from a text file or a CSV.
+
+## Known Issues
+
+- The dialog opened with the "i" shortcut does not reappear after closing it unless the page is reloaded.
