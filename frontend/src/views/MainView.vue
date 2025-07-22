@@ -6,6 +6,7 @@
   import { onMounted, onUnmounted, type Ref, ref } from 'vue'
 
   const quote: Ref<Quote> = ref({} as Quote)
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
   const showNewQuoteDialog = ref(false)
   const showHelpDialog = ref(false)
@@ -13,7 +14,7 @@
   const getRandomQuote = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/quotes/random`,
+        `${apiBaseUrl}/quotes/random`,
       )
       return response.data
     } catch (e) {

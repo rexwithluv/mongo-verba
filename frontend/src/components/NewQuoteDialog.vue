@@ -8,6 +8,7 @@
 
   const toast = useToast()
 
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
   const newQuote: Ref<Quote> = ref({
     quote: '',
     author: '',
@@ -16,7 +17,7 @@
   const createQuote = async () => {
     try {
       await axios.post(
-        `http://localhost:3000/quotes`,
+        `${apiBaseUrl}/quotes`,
         newQuote.value,
       )
       toast.add({

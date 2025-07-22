@@ -4,15 +4,18 @@ import cors from 'cors'
 import Quote from './models/Quote.js'
 
 const app = express()
+const DB_NAME = process.env.DB_NAME
+const DB_USERNAME = process.env.MONGO_USERNAME
+const DB_PASSWORD = process.env.MONGO_PASSWORD
 const PORT = 3000
 
 app.use(express.json())
 app.use(cors())
 
-const mongoUri = 'mongodb://root:root@mongodb:27017'
+const mongoUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb:27017`
 
 try {
-  await mongoose.connect(mongoUri, { dbName: 'mongo-verba' })
+  await mongoose.connect(mongoUri, { dbName: DB_NAME })
   console.log('Express conectado a MongoDB con éxito!')
 } catch (e) {
   console.log(`Express no logró conectarse con MongoDB: ${e.message}`)
