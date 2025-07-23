@@ -35,10 +35,6 @@ app.get('/quotes/random', async (req, res) => {
 app.post('/quotes', async (req, res) => {
   const { author, quote, note } = req.body
 
-  if (!author || !quote) {
-    return res.status(400).json({ message: 'El texto de la frase es obligatorio.' })
-  }
-
   const newQuote = new Quote({ author, quote, note })
   try {
     const savedQuote = await newQuote.save()

@@ -35,6 +35,10 @@
   }
 
   const handleKeyPress = async (event: KeyboardEvent) => {
+    if (showNewQuoteDialog.value) {
+      return
+    }
+
     switch (event.code) {
       case 'KeyI':
         event.preventDefault()

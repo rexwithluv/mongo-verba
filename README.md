@@ -32,7 +32,6 @@
 
 - Optimize for mobile devices.
 - Add language switching options.
-- Enhance the insert dialog UI.
 - Save and read quotes from a text file or a CSV.
 
 ## Known Issues
