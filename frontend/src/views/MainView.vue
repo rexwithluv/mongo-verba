@@ -9,13 +9,10 @@
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
   const showNewQuoteDialog = ref(false)
-  const showHelpDialog = ref(false)
 
   const getRandomQuote = async () => {
     try {
-      const response = await axios.get(
-        `${apiBaseUrl}/quotes/random`,
-      )
+      const response = await axios.get(`${apiBaseUrl}/quotes/random`)
       return response.data
     } catch (e) {
       console.log(`Error: ${e}`)
@@ -38,11 +35,6 @@
   }
 
   const handleKeyPress = async (event: KeyboardEvent) => {
-    const isDialogActive = showNewQuoteDialog.value || showHelpDialog.value
-    if (isDialogActive) {
-      return
-    }
-
     switch (event.code) {
       case 'KeyI':
         event.preventDefault()
@@ -66,7 +58,7 @@
 </script>
 
 <template>
-  <NewQuoteDialog :is-visible="showNewQuoteDialog" />
+  <NewQuoteDialog v-model:is-visible="showNewQuoteDialog" />
 
   <div class="main-layout">
     <div class="header-section">

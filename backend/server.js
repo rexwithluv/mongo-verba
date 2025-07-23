@@ -1,6 +1,6 @@
+import cors from 'cors'
 import express from 'express'
 import mongoose from 'mongoose'
-import cors from 'cors'
 import Quote from './models/Quote.js'
 
 const app = express()

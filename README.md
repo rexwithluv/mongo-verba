@@ -37,4 +37,4 @@
 
 ## Known Issues
 
-- The dialog opened with the "i" shortcut does not reappear after closing it unless the page is reloaded.
+- None at the moment!!
