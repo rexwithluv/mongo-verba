@@ -63,7 +63,9 @@
   <div class="main-layout">
     <div class="header-section">
       <h1>Mongo Verba</h1>
-      <p class="tagline">Developed with <3 by @rexwithluv</p>
+      <p class="tagline">
+        Developed with <3 by <a href="https://github.com/rexwithluv/">@rexwithluv</a>
+      </p>
     </div>
 
     <main class="content-section">
@@ -78,6 +80,9 @@
 </template>
 
 <style scoped>
+  a {
+    color: inherit;
+  }
   .main-layout {
     display: flex;
     flex-direction: column;
