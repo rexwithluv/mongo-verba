@@ -1,14 +1,16 @@
 <script setup lang="ts">
   import type { Quote } from '@/models/Quote'
+  import { useApiStore } from '@/stores/apiStore'
   import axios from 'axios'
   import { Button, useToast } from 'primevue'
   import { ref, watch, type Ref } from 'vue'
 
   const isVisible: Ref<boolean | undefined> = defineModel('isVisible')
 
+  const apiStore = useApiStore()
   const toast = useToast()
 
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+  const apiBaseUrl = apiStore.baseUrl
   const newQuote: Ref<Quote> = ref({
     quote: '',
     author: '',

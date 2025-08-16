@@ -1,0 +1,10 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  namespace: mongo-verba
+  name: strip-prefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /mongo-verba
+      - /api/mongo-verba

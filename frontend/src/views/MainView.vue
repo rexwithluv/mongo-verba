@@ -2,11 +2,14 @@
   import NewQuoteDialog from '@/components/NewQuoteDialog.vue'
   import QuotePanel from '@/components/QuotePanel.vue'
   import type { Quote } from '@/models/Quote'
+  import { useApiStore } from '@/stores/apiStore'
   import axios from 'axios'
   import { onMounted, onUnmounted, type Ref, ref } from 'vue'
 
+  const apiStore = useApiStore()
+
   const quote: Ref<Quote> = ref({} as Quote)
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+  const apiBaseUrl = apiStore.baseUrl
 
   const showNewQuoteDialog = ref(false)
 

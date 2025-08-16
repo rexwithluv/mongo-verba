@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: mongo-verba
+  name: backend-deployment
+  labels:
+    app: mongo-verba
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-verba
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: mongo-verba
+        tier: backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/rexwithluv/mongo-verba-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: mongo-db-name
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: mongo-admin-username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: mongo-admin-password
+          resources:
+            requests:
+              memory: '128Mi'
+              cpu: '100m'
+            limits:
+              memory: '256Mi'
+              cpu: '250m'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: mongo-verba
+  name: frontend-deployment
+  labels:
+    app: mongo-verba
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-verba
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: mongo-verba
+        tier: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/rexwithluv/mongo-verba-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: VITE_API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: api-base-url
+          resources:
+            requests:
+              memory: '64Mi'
+              cpu: '50m'
+            limits:
+              memory: '128Mi'
+              cpu: '100m'

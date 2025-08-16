@@ -12,7 +12,7 @@ const PORT = 3000
 app.use(express.json())
 app.use(cors())
 
-const mongoUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb:27017`
+const mongoUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb-service.mongo-verba.svc.cluster.local:27017`
 
 try {
   await mongoose.connect(mongoUri, { dbName: DB_NAME })

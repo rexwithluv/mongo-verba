@@ -1,0 +1,52 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: mongo-verba
+  name: ingress
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+    traefik.ingress.kubernetes.io/router.middlewares: mongo-verba-strip-prefix@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: 'rexwithluv.dev'
+      http:
+        paths:
+          - pathType: Prefix
+            path: /api/mongo-verba
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /mongo-verba
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 80
+    - host: 'www.rexwithluv.dev'
+      http:
+        paths:
+          - pathType: Prefix
+            path: /api/mongo-verba
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /mongo-verba
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - 'rexwithluv.dev'
+        - 'www.rexwithluv.dev'
+      secretName: rexwithluv-tls

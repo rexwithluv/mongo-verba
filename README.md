@@ -1,5 +1,8 @@
 # Mongo Verba
 
+> [!WARNING]
+> The `docker-compose.yaml` file may not currently work due to the migration to K8s. Additionally, if you want to deploy, the `frontend/vite.config.ts` and `frontend/src/stores/apiStore.ts` files must be edited with the corresponding URLs.
+
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
@@ -16,16 +19,10 @@
     cd mongo-verba
     ```
 
-2. Copy the .env file:
+2. Start the application with Kubernetes:
 
     ```bash
-    cp .env.example .env
-    ```
-
-3. Start the application with Docker Compose:
-
-    ```bash
-    docker compose up -d --build
+    kubectl apply -f k8s/
     ```
 
 ## Future Enhancements

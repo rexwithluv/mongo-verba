@@ -12,13 +12,11 @@ ARG VITE_API_BASE_URL
 
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 
-ARG VITE_BASE_URL
-
-ENV VITE_BASE_URL=$VITE_BASE_URL
-
 RUN npm run build
 
 FROM nginx:alpine
+
+LABEL org.opencontainers.image.source="https://github.com/rexwithluv/mongo-verba"
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
