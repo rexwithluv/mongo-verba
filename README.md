@@ -1,8 +1,5 @@
 # Mongo Verba
 
-> [!WARNING]
-> The `docker-compose.yaml` file may not currently work due to the migration to K8s. Additionally, if you want to deploy, the `frontend/vite.config.ts` and `frontend/src/stores/apiStore.ts` files must be edited with the corresponding URLs.
-
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
@@ -10,9 +7,11 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
 
-**Mongo Verba** is a simple web application for **storing quotes**. It allows users to add quotes with an author and optional notes, providing a practical environment for experimenting with **MongoDB**. [Check out on my playground <3](https://rexwithluv.dev/mongo-verba)
+**Mongo Verba** is a simple web application for **storing quotes**. It allows users to add quotes with an author and optional notes, providing a practical environment for experimenting with **MongoDB**.
 
 ## Getting started
+
+### Development (using Docker)
 
 1. Navigate to the project directory:
 
@@ -20,11 +19,49 @@
     cd mongo-verba
     ```
 
-2. Start the application with Kubernetes:
+2. Set up the environment variables:
+
+    ```bash
+    cp .env.example .env
+    nano .env
+    ```
+
+3. Start the application with Docker:
+
+    ```bash
+    docker compose up -d --build
+    ```
+
+The frontend is available at `http://localhost:2319` and the backend API is available at `http://localhost:3000`
+
+### Production (using Kubernetes)
+
+1. Navigate to the project directory:
+
+    ```bash
+    cd mongo-verba
+    ```
+
+2. Setup the secrets:
+
+    ```bash
+    cp k8s/secrets.example.yaml k8s/secrets.yaml
+    nano k8s/secrets.yaml
+    ```
+
+3. Edit the Ingress to use your domain:
+
+    ```bash
+    nano k8s/ingress.yaml
+    ```
+
+4. Start the application with Kubernetes:
 
     ```bash
     kubectl apply -f k8s/
     ```
+
+The application will be available at `https://your-domain.com/mongo-verba`
 
 ## Future Enhancements
 
