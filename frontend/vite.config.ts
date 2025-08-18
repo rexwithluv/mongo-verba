@@ -6,9 +6,12 @@ import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
+const isDevelopment = process.env.VITE_ENVIRONMENT === 'development'
+const baseUrl = isDevelopment ? '/' : "/mongo-verba/"
+
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/mongo-verba/',
+  base: baseUrl,
   plugins: [
     vue(),
     vueDevTools(),

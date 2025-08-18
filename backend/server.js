@@ -25,6 +25,10 @@ try {
   console.log(`Express no logró conectarse con MongoDB: ${e.message}`)
 }
 
+app.get('/health', async (req, res) => {
+  res.status(200).send('OK')
+})
+
 app.get('/quotes/random', async (req, res) => {
   try {
     const quotes = await Quote.find()

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type { Quote } from '@/models/Quote'
-  import { onMounted, onUnmounted, ref, watch, type Ref } from 'vue'
+  import { onMounted, onUnmounted, ref, type Ref } from 'vue'
   import capitalize from '@/helpers/capitalize'
 
   const quote: Ref<Quote | undefined> = defineModel('quote')

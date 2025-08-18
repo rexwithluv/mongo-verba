@@ -25,16 +25,23 @@ services:
       MONGO_PASSWORD: ${MONGO_ADMIN_PASSWORD}
     depends_on:
       - mongodb
+    healthcheck:
+      test: ['CMD', 'curl', '--fail', 'http://localhost:3000/health']
+      interval: 5s
+      timeout: 10s
+      retries: 3
 
   frontend:
     build:
       context: ./frontend
       args:
-        - VITE_API_BASE_URL=${API_BASE_URL}
-        - VITE_BASE_URL=${FRONTEND_BASE_URL}
+        - VITE_ENVIRONMENT=development
     container_name: frontend-mongo-verba
     ports:
       - 2319:80
+    depends_on:
+      backend:
+        condition: service_healthy
 
 volumes:
   mongo_verba_data:

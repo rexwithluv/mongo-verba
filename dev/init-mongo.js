@@ -2,16 +2,15 @@ db.createCollection('quotes')
 
 db.quotes.insertMany([
   {
-    author: 'me',
-    quote: 'inspirational quote',
+    quote: 'Be kind',
   },
   {
-    author: 'taylor swift',
-    quote: "it's me, hi! i'm the problem, it's me.",
+    quote: 'Love is nothing stronger\nThan a boy with luv',
+    author: 'BTS',
   },
   {
-    author: 'taylor alison swift',
-    quote:
-      'the burgundy on my tshirt when u splash ur wine into me and how the blood rushed into my cheeks so scarlet, it was maroon',
+    quote: "It's me, hi, I'm the problem, it's me",
+    author: 'Taylor Swift',
+    note: 'Anti-Hero, Midnights',
   },
 ])
