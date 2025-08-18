@@ -4,6 +4,8 @@ import mongoose from 'mongoose'
 import Quote from './models/Quote.js'
 
 const app = express()
+
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 const DB_NAME = process.env.DB_NAME
 const DB_USERNAME = process.env.MONGO_USERNAME
 const DB_PASSWORD = process.env.MONGO_PASSWORD
@@ -12,7 +14,9 @@ const PORT = 3000
 app.use(express.json())
 app.use(cors())
 
-const mongoUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb-service.mongo-verba.svc.cluster.local:27017`
+const mongoUri = IS_DEVELOPMENT
+  ? `mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb:27017`
+  : `mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb-service.mongo-verba.svc.cluster.local:27017`
 
 try {
   await mongoose.connect(mongoUri, { dbName: DB_NAME })

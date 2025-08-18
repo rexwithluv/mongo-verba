@@ -19,6 +19,7 @@ services:
     ports:
       - 3000:3000
     environment:
+      NODE_ENV: development
       DB_NAME: ${MONGO_DB_NAME}
       MONGO_USERNAME: ${MONGO_ADMIN_USERNAME}
       MONGO_PASSWORD: ${MONGO_ADMIN_PASSWORD}
