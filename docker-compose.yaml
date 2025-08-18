@@ -5,10 +5,12 @@ services:
     ports:
       - 27017:27017
     environment:
+      MONGO_INITDB_DATABASE: ${MONGO_DB_NAME}
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ADMIN_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ADMIN_PASSWORD}
     volumes:
       - mongo_verba_data:/data/db
+      - ./dev/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
 
   backend:
     build:
@@ -32,7 +34,6 @@ services:
     container_name: frontend-mongo-verba
     ports:
       - 2319:80
-
 
 volumes:
   mongo_verba_data:
