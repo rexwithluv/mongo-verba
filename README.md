@@ -8,6 +8,7 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
 
 **Mongo Verba** is a simple web application for **storing quotes**. It allows users to add quotes with an author and optional notes, providing a practical environment for experimenting with **MongoDB**. [Check out on my playground <3](https://rexwithluv.dev/mongo-verba)
 
