@@ -43,7 +43,17 @@ app.get('/quotes/random', async (req, res) => {
 app.post('/quotes', async (req, res) => {
   const { author, quote, note } = req.body
 
-  const newQuote = new Quote({ author, quote, note })
+  const quoteData = { quote }
+
+  if (author && author.trim() !== '') {
+    quoteData.author = author
+  }
+
+  if (note && note.trim() !== '') {
+    quoteData.note = note
+  }
+
+  const newQuote = new Quote(quoteData)
   try {
     const savedQuote = await newQuote.save()
     res.status(201).json(savedQuote)
