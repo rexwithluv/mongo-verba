@@ -45,11 +45,11 @@ app.post('/quotes', async (req, res) => {
 
   const quoteData = { quote }
 
-  if (author.trim() !== '') {
+  if (author && author.trim() !== '') {
     quoteData.author = author
   }
 
-  if (note.trim() !== '') {
+  if (note && note.trim() !== '') {
     quoteData.note = note
   }
 
