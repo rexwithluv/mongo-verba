@@ -65,7 +65,6 @@ The application will be available at `https://your-domain.com/mongo-verba`
 
 ## Future Enhancements
 
-- Optimize for mobile devices.
 - Add language switching options.
 - Save and read quotes from a text file or a CSV.
 
