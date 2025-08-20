@@ -89,9 +89,15 @@
         <Button
           label="Insert new quote"
           aria-label="Insert new quote"
+          severity="secondary"
           @click="openNewQuoteDialog"
         />
-        <Button label="Get random quote" aria-label="Get random quote" @click="changeQuote" />
+        <Button
+          label="Get random quote"
+          aria-label="Get random quote"
+          severity="secondary"
+          @click="changeQuote"
+        />
       </div>
     </footer>
   </div>
