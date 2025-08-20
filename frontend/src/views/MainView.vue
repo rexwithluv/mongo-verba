@@ -80,8 +80,19 @@
     </main>
 
     <footer class="footer-section">
-      <p class="instructions">Press <span class="key-highlight">Space</span> for random quote</p>
-      <p class="instructions">Press <span class="key-highlight">I</span> to insert new quote</p>
+      <div class="pc-instructions">
+        <p class="instructions">Press <span class="key-highlight">Space</span> for random quote</p>
+        <p class="instructions">Press <span class="key-highlight">I</span> to insert new quote</p>
+      </div>
+
+      <div class="mobile-buttons">
+        <Button
+          label="Insert new quote"
+          aria-label="Insert new quote"
+          @click="openNewQuoteDialog"
+        />
+        <Button label="Get random quote" aria-label="Get random quote" @click="changeQuote" />
+      </div>
     </footer>
   </div>
 </template>
@@ -93,7 +104,7 @@
   .main-layout {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100svh;
     background: linear-gradient(to bottom right, var(--surface-a), var(--surface-100));
     color: var(--text-color);
     font-family: var(--font-family);
@@ -154,5 +165,21 @@
     margin-top: 1rem;
     font-size: 0.8em;
     color: var(--surface-400);
+  }
+
+  .mobile-buttons {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .pc-instructions {
+      display: none;
+    }
   }
 </style>

@@ -8,12 +8,15 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Button: typeof import('primevue/button')['default']
     Dialog: typeof import('primevue/dialog')['default']
     HelpDialog: typeof import('./src/components/HelpDialog.vue')['default']
+    InputText: typeof import('primevue/inputtext')['default']
     NewQuoteDialog: typeof import('./src/components/NewQuoteDialog.vue')['default']
     QuotePanel: typeof import('./src/components/QuotePanel.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Textarea: typeof import('primevue/textarea')['default']
     Toast: typeof import('primevue/toast')['default']
   }
 }
