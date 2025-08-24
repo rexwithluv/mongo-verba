@@ -37,7 +37,8 @@ services:
   frontend:
     image: node:22-alpine
     environment:
-      - VITE_ENVIRONMENT=development
+      VITE_ENVIRONMENT: development
+      VITE_ENABLE_INSERT_QUOTE: true
     container_name: frontend-mongo-verba
     ports:
       - 5173:5173
