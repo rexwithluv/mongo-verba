@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/rexwithluv/mongo-verba/compare/v1.3.0...v1.3.1) (2025-08-24)
+
+
+### Bug Fixes
+
+* remove VITE_ in backend Dockerfile ([114706d](https://github.com/rexwithluv/mongo-verba/commit/114706d6077c72f181fa3a9146f45699169bb1be))
+
 # [1.3.0](https://github.com/rexwithluv/mongo-verba/compare/v1.2.0...v1.3.0) (2025-08-24)
 
 
