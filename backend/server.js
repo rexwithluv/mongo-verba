@@ -41,6 +41,13 @@ app.get('/quotes/random', async (req, res) => {
 })
 
 app.post('/quotes', async (req, res) => {
+  if (process.env.ENABLE_INSERT_QUOTE === 'false') {
+    res.status(405).json({
+      message: 'The quote-saving feature is disabled.',
+    })
+    return
+  }
+
   const { author, quote, note } = req.body
 
   const quoteData = { quote }

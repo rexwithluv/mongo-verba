@@ -6,6 +6,8 @@
   import axios from 'axios'
   import { onMounted, onUnmounted, type Ref, ref } from 'vue'
 
+  const enableInsertQuote = import.meta.env.VITE_ENABLE_INSERT_QUOTE === 'true'
+
   const configStore = useConfigStore()
 
   const quote: Ref<Quote> = ref({} as Quote)
@@ -42,16 +44,13 @@
       return
     }
 
-    switch (event.code) {
-      case 'KeyI':
-        event.preventDefault()
-        openNewQuoteDialog()
-        break
-
-      case 'Space':
-        event.preventDefault()
-        await changeQuote()
-        break
+    const keyCode = event.code
+    if (keyCode === 'KeyI' && enableInsertQuote) {
+      event.preventDefault()
+      openNewQuoteDialog()
+    } else if (keyCode === 'Space') {
+      event.preventDefault()
+      await changeQuote()
     }
   }
 
@@ -82,7 +81,9 @@
     <footer class="footer-section">
       <div class="pc-instructions">
         <p class="instructions">Press <span class="key-highlight">Space</span> for random quote</p>
-        <p class="instructions">Press <span class="key-highlight">I</span> to insert new quote</p>
+        <p class="instructions" v-if="enableInsertQuote">
+          Press <span class="key-highlight">I</span> to insert new quote
+        </p>
       </div>
 
       <div class="mobile-buttons">
@@ -90,6 +91,7 @@
           label="Insert new quote"
           aria-label="Insert new quote"
           severity="secondary"
+          v-if="enableInsertQuote"
           @click="openNewQuoteDialog"
         />
         <Button

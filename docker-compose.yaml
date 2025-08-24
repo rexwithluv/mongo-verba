@@ -5,46 +5,50 @@ services:
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_DATABASE: ${MONGO_DB_NAME}
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ADMIN_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ADMIN_PASSWORD}
+      MONGO_INITDB_DATABASE: mongo-verba
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
     volumes:
-      - mongo_verba_data:/data/db
       - ./dev/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
 
   backend:
-    build:
-      context: ./backend
+    image: node:22-alpine
     container_name: backend-mongo-verba
     ports:
       - 3000:3000
     environment:
       NODE_ENV: development
-      DB_NAME: ${MONGO_DB_NAME}
-      MONGO_USERNAME: ${MONGO_ADMIN_USERNAME}
-      MONGO_PASSWORD: ${MONGO_ADMIN_PASSWORD}
+      DB_NAME: mongo-verba
+      MONGO_USERNAME: root
+      MONGO_PASSWORD: root
+      ENABLE_INSERT_QUOTE: true
     depends_on:
       - mongodb
+    command: npm run dev
+    working_dir: /app
+    volumes:
+      - ./backend:/app
     healthcheck:
-      test: ['CMD', 'curl', '--fail', 'http://localhost:3000/health/liveness']
+      test: ['CMD', 'wget', '--spider', '--quiet', 'http://localhost:3000/health/liveness']
       interval: 5s
       timeout: 10s
       retries: 3
 
   frontend:
-    build:
-      context: ./frontend
-      args:
-        - VITE_ENVIRONMENT=development
+    image: node:22-alpine
+    environment:
+      VITE_ENVIRONMENT: development
+      VITE_ENABLE_INSERT_QUOTE: true
     container_name: frontend-mongo-verba
     ports:
-      - 2319:80
+      - 5173:5173
     depends_on:
       backend:
         condition: service_healthy
-
-volumes:
-  mongo_verba_data:
+    command: npm run dev -- --host
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
 
 networks:
   mongo-naga-net:

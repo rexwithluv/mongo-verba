@@ -22,8 +22,7 @@
 2. Set up the environment variables:
 
     ```bash
-    cp .env.example .env
-    nano .env
+    nano docker-compose.yaml
     ```
 
 3. Start the application with Docker:
@@ -62,6 +61,8 @@ The frontend is available at `http://localhost:2319` and the backend API is avai
     ```
 
 The application will be available at `https://your-domain.com/mongo-verba`
+
+Note: It's possible to enable or disable quote insertion independently on both the frontend and the backend. By default, it comes disabled on the backend and frontend. Edit the Dockerfiles according to your preference.
 
 ## Future Enhancements
 
