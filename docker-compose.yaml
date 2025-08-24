@@ -21,6 +21,7 @@ services:
       DB_NAME: mongo-verba
       MONGO_USERNAME: root
       MONGO_PASSWORD: root
+      ENABLE_INSERT_QUOTE: true
     depends_on:
       - mongodb
     command: npm run dev
