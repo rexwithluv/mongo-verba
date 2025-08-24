@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/rexwithluv/mongo-verba/compare/v1.2.0...v1.3.0) (2025-08-24)
+
+
+### Features
+
+* enable/disable insert quote option ([#3](https://github.com/rexwithluv/mongo-verba/issues/3)) ([2f70372](https://github.com/rexwithluv/mongo-verba/commit/2f70372cb6c04eabb06293f4fa19ed38f993d0b9))
+
 # [1.2.0](https://github.com/rexwithluv/mongo-verba/compare/v1.1.0...v1.2.0) (2025-08-20)
 
 
