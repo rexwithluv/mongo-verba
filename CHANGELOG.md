@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/rexwithluv/mongo-verba/compare/v1.3.1...v1.3.2) (2025-08-24)
+
+
+### Bug Fixes
+
+* ENV instead ARG in backend Dockerfile ([b3d3b01](https://github.com/rexwithluv/mongo-verba/commit/b3d3b011c419ddaaf86ed4631ea391ddb14a7311))
+
 ## [1.3.1](https://github.com/rexwithluv/mongo-verba/compare/v1.3.0...v1.3.1) (2025-08-24)
 
 
