@@ -10,6 +10,8 @@ COPY . .
 
 ARG VITE_ENVIRONMENT
 
+ARG VITE_ENABLE_INSERT_QUOTE=false
+
 RUN npm run build
 
 FROM nginx:alpine
