@@ -88,12 +88,6 @@ spec:
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 10
-          env:
-            - name: VITE_API_BASE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: configmap
-                  key: api-base-url
           resources:
             requests:
               memory: '64Mi'
