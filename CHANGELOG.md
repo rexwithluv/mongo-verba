@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/rexwithluv/mongo-verba/compare/v1.3.2...v1.3.3) (2025-11-16)
+
+
+### Bug Fixes
+
+* **k8s:** remove deployement env from configmap ([1c381df](https://github.com/rexwithluv/mongo-verba/commit/1c381dffcb41e3e2c1fc7024f4980e825b6d1123))
+
 ## [1.3.2](https://github.com/rexwithluv/mongo-verba/compare/v1.3.1...v1.3.2) (2025-08-24)
 
 
