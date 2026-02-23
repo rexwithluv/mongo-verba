@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/rexwithluv/mongo-verba/compare/v1.4.0...v1.5.0) (2026-02-23)
+
+
+### Features
+
+* add /quotes endpoint to get all quotes ([f508a8a](https://github.com/rexwithluv/mongo-verba/commit/f508a8ae7c8ef59a66d03906191a90030d78faad))
+
 # [1.4.0](https://github.com/rexwithluv/mongo-verba/compare/v1.3.3...v1.4.0) (2026-02-23)
 
 
