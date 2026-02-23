@@ -2,6 +2,7 @@ import cors from 'cors'
 import express from 'express'
 import mongoose from 'mongoose'
 import Quote from './models/Quote.js'
+import setupNtfy from './scheduler.js'
 
 const app = express()
 
@@ -68,6 +69,8 @@ app.post('/quotes', async (req, res) => {
     res.status(400).json({ message: e.message })
   }
 })
+
+setupNtfy()
 
 app.listen(PORT, () => {
   console.log(`Servidor API escuchando en el puerto ${PORT}`)
