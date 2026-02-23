@@ -30,6 +30,15 @@ app.get('/health/liveness', async (req, res) => {
   res.status(200).json({ status: 'OK' })
 })
 
+app.get('/quotes', async (req, res) => {
+  try {
+    const quotes = await Quote.find()
+    res.status(200).json(quotes)
+  } catch (e) {
+    res.status(500).json({ message: e.message })
+  }
+})
+
 app.get('/quotes/random', async (req, res) => {
   try {
     const quotes = await Quote.find()
