@@ -11,7 +11,7 @@ RUN apk add --no-cache curl
 
 RUN npm install --omit=dev
 
-ENV ENABLE_INSERT_QUOTE=false
+ENV ENABLE_INSERT_QUOTE=true
 
 COPY . .
 
