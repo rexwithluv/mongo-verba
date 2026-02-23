@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/rexwithluv/mongo-verba/compare/v1.3.3...v1.4.0) (2026-02-23)
+
+
+### Features
+
+* add mobile notifications using ntfy.sh ([#4](https://github.com/rexwithluv/mongo-verba/issues/4)) ([1fb31ac](https://github.com/rexwithluv/mongo-verba/commit/1fb31ac07ae2878c7e2195a8cef7f46abb4b6cd9))
+
 ## [1.3.3](https://github.com/rexwithluv/mongo-verba/compare/v1.3.2...v1.3.3) (2025-11-16)
 
 
