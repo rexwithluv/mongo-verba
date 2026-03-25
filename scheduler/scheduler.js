@@ -24,7 +24,7 @@ async function sendNtfy(quoteObject) {
     },
   })
 
-  console.log('Sending ntfy: ', quoteObject)
+  console.log('Sending ntfy... ')
 }
 
 async function main() {
