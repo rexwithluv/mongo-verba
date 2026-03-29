@@ -8,4 +8,4 @@ DELAY_MINUTES=$((DELAY / 60))
 
 echo "Run scheduler.js (mongo-verba) with '$DELAY_MINUTES' minutes delay | '$SCHEDULER_PATH' scheduler path"
 
-sleep $DELAY && "$SCHEDULER_PATH"
+sleep $DELAY && node "$SCHEDULER_PATH"
