@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/rexwithluv/mongo-verba/compare/v1.6.0...v1.6.1) (2026-03-31)
+
+
+### Bug Fixes
+
+* update mongo version ([85c6939](https://github.com/rexwithluv/mongo-verba/commit/85c69395f566e2838e7cf21d2553dfe2c24a5b1a))
+
 # [1.6.0](https://github.com/rexwithluv/mongo-verba/compare/v1.5.0...v1.6.0) (2026-03-31)
 
 
