@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/rexwithluv/mongo-verba/compare/v1.5.0...v1.6.0) (2026-03-31)
+
+
+### Features
+
+* **backend:** add "enabled" parameter in DB ([dd7c840](https://github.com/rexwithluv/mongo-verba/commit/dd7c8408fdfb2c90f77974a5c626f2d27d17d1c6))
+
 # [1.5.0](https://github.com/rexwithluv/mongo-verba/compare/v1.4.0...v1.5.0) (2026-02-23)
 
 
