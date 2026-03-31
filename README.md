@@ -64,6 +64,10 @@ The application will be available at `https://your-domain.com/mongo-verba`
 
 Note: It's possible to enable or disable quote insertion independently on both the frontend and the backend. By default, it comes disabled on the backend and frontend. Edit the Dockerfiles according to your preference.
 
+## Scheduler (with Cron)
+
+Using `cron`, it is possible to send daily notifications within a specific time range to a **ntfy.sh** topic. These notifications are pulled from this application's public API. More information can be found in the `./scheduler` directory.
+
 ## Future Enhancements
 
 - Add language switching options.
