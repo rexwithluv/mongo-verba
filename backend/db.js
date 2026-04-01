@@ -2,19 +2,20 @@ import mongoose from 'mongoose'
 import Quote from './models/Quote.js'
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
+
 const DB_NAME = process.env.DB_NAME
 const DB_USERNAME = process.env.MONGO_USERNAME
 const DB_PASSWORD = process.env.MONGO_PASSWORD
 
-const mongoUri = IS_DEVELOPMENT
-  ? `mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb:27017`
-  : `mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb-service.mongo-verba.svc.cluster.local:27017`
+const MONGO_HOST = IS_DEVELOPMENT ? 'mongodb' : 'mongodb-service.mongo-verba.svc.cluster.local'
+const mongoUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${MONGO_HOST}:27017`
 
 try {
   await mongoose.connect(mongoUri, { dbName: DB_NAME })
   console.log('Backend conectado a MongoDB con éxito!')
 } catch (e) {
-  console.log(`Backend no logró conectarse con MongoDB: ${e.message}`)
+  console.error(`Backend no logró conectarse con MongoDB: ${e.message}`)
+  process.exit(1)
 }
 
 export async function getAllQuotes() {
@@ -28,8 +29,12 @@ export async function getAllQuotes() {
 
 export async function getRandomQuote() {
   console.debug('Run getRandomQuote(). Only return enabled = true quotes without enabled field')
-  const quotes = await Quote.find({ enabled: true }).select('-enabled')
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
+  const randomQuoteArray = await Quote.aggregate([
+    { $match: { enabled: true } },
+    { $sample: { size: 1 } },
+    { $project: { enabled: 0 } },
+  ])
+  const randomQuote = randomQuoteArray[0]
 
   console.debug('RandomQuote: ', randomQuote)
 
