@@ -8,6 +8,7 @@ services:
       MONGO_INITDB_DATABASE: mongo-verba
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
+      GLIBC_TUNABLES: 'glibc.pthread.rseq=1' # For Fedora 43
     volumes:
       - ./dev/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
 
