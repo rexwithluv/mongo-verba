@@ -1,3 +1,13 @@
+## [1.6.2](https://github.com/rexwithluv/mongo-verba/compare/v1.6.1...v1.6.2) (2026-04-01)
+
+
+### Bug Fixes
+
+* **backend:** implement changes for PR [#6](https://github.com/rexwithluv/mongo-verba/issues/6) ([06959ab](https://github.com/rexwithluv/mongo-verba/commit/06959ab70643e10cbab8a3aea319e3726fa571ce))
+* **docker:** add glib env variable for 139 mongodb error in fedora 43 ([83d241f](https://github.com/rexwithluv/mongo-verba/commit/83d241fd6d2a8c3cfd2e297e1f89385609ee1bce))
+* **scheduler:** add .env file and update executable paths ([4e9fbf9](https://github.com/rexwithluv/mongo-verba/commit/4e9fbf9f7de412789e7e9857cc60e74ede84fe92)), closes [#5](https://github.com/rexwithluv/mongo-verba/issues/5)
+* **scheduler:** implement many gemini reviews and suggestions ([fd78e11](https://github.com/rexwithluv/mongo-verba/commit/fd78e1195157a186281a9375fb75abba5004d335))
+
 ## [1.6.1](https://github.com/rexwithluv/mongo-verba/compare/v1.6.0...v1.6.1) (2026-03-31)
 
 
