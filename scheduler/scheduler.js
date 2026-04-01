@@ -1,8 +1,8 @@
-// CRONTAB
-// 0 9 * * * /bin/bash $HOME/cronjob.sh "$HOME/scheduler.js" >> "$HOME/scheduler.log" 2>&1
+const mongoVerbaUrl = process.env.MONGO_VERBA_URL
+const ntfyTopic = process.env.NTFY_TOPIC
 
 async function fetchQuote() {
-  const response = await fetch('https://rexwithluv.dev/api/mongo-verba/quotes/random')
+  const response = await fetch(mongoVerbaUrl)
   const data = await response.json()
 
   console.log('Get Quote: ', data)
@@ -14,7 +14,7 @@ async function sendNtfy(quoteObject) {
   const quote = quoteObject['quote']
   const author = quoteObject['author'] || ''
 
-  await fetch('https://ntfy.sh/rwl', {
+  await fetch(`https://ntfy.sh/${ntfyTopic}`, {
     method: 'POST',
     body: Buffer.from(quote, 'utf-8'),
     headers: {
@@ -32,4 +32,4 @@ async function main() {
   await sendNtfy(quoteObj)
 }
 
-main()
+main().catch(console.error)
