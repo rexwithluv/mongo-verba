@@ -1,6 +1,3 @@
-const mongoVerbaUrl = process.env.MONGO_VERBA_URL
-const ntfyTopic = process.env.NTFY_TOPIC
-
 async function fetchQuote() {
   const response = await fetch(mongoVerbaUrl)
   const data = await response.json()
@@ -28,6 +25,14 @@ async function sendNtfy(quoteObject) {
 }
 
 async function main() {
+  const mongoVerbaUrl = process.env.MONGO_VERBA_URL
+  const ntfyTopic = process.env.NTFY_TOPIC
+
+  if (!mongoVerbaUrl || !ntfyTopic) {
+    console.error('Error: MONGO_VERBA_URL and NTFY_TOPIC environment variables must be set.')
+    process.exit(1)
+  }
+
   const quoteObj = await fetchQuote()
   await sendNtfy(quoteObj)
 }
