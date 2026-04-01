@@ -1,11 +1,18 @@
 #!/bin/bash
 
-SCHEDULER_PATH="$1"
-NODE_BIN=".nvm/versions/node/v24.14.1/bin/node"
+readonly SCHEDULER_PATH="$1"
+readonly NODE_BIN=$(command -v node || which node)
+readonly ENV_PATH="${SCHEDULER_PATH%scheduler.js}.env"
 
-DELAY=$((RANDOM % (13 * 60 * 60)))
-DELAY_MINUTES=$((DELAY / 60))
+readonly DELAY=$((RANDOM % (13 * 60 * 60)))
+readonly DELAY_MINUTES=$((DELAY / 60))
 
-echo "Run scheduler.js (mongo-verba) with '$DELAY_MINUTES' minutes delay | '$SCHEDULER_PATH' scheduler path"
+date
 
-sleep $DELAY && $NODE_BIN "$SCHEDULER_PATH"
+echo "Run scheduler.js (mongo-verba) with '$DELAY_MINUTES' minutes delay"
+
+echo "'$SCHEDULER_PATH' scheduler path"
+echo "'$NODE_BIN' node path"
+echo "'$ENV_PATH' .env file path"
+
+sleep "$DELAY" && "$NODE_BIN" --env-file="$ENV_PATH" "$SCHEDULER_PATH"
