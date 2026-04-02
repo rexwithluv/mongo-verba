@@ -44,8 +44,3 @@ spec:
                 name: frontend-service
                 port:
                   number: 80
-  tls:
-    - hosts:
-        - 'rexwithluv.dev'
-        - 'www.rexwithluv.dev'
-      secretName: rexwithluv-tls
