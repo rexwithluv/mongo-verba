@@ -1,5 +1,5 @@
-async function fetchQuote() {
-  const response = await fetch(mongoVerbaUrl)
+async function fetchQuote(url) {
+  const response = await fetch(url)
   const data = await response.json()
 
   console.log('Get Quote: ', data)
@@ -7,7 +7,7 @@ async function fetchQuote() {
   return data
 }
 
-async function sendNtfy(quoteObject) {
+async function sendNtfy(quoteObject, ntfyTopic) {
   const quote = quoteObject['quote']
   const author = quoteObject['author'] || ''
 
@@ -33,8 +33,8 @@ async function main() {
     process.exit(1)
   }
 
-  const quoteObj = await fetchQuote()
-  await sendNtfy(quoteObj)
+  const quoteObj = await fetchQuote(mongoVerbaUrl)
+  await sendNtfy(quoteObj, ntfyTopic)
 }
 
 main().catch(console.error)
