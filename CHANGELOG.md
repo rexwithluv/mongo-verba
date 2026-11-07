@@ -1,3 +1,10 @@
+## [1.6.6](https://github.com/rexwithluv/mongo-verba/compare/v1.6.5...v1.6.6) (2026-11-07)
+
+
+### Bug Fixes
+
+* stop infinite loop when requesting a new random quote ([6941b14](https://github.com/rexwithluv/mongo-verba/commit/6941b1449e797bed3bbd247996c5ce3a766e9086))
+
 ## [1.6.5](https://github.com/rexwithluv/mongo-verba/compare/v1.6.4...v1.6.5) (2026-11-07)
 
 
