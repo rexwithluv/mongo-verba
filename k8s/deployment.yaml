@@ -23,13 +23,21 @@ spec:
           image: ghcr.io/rexwithluv/mongo-verba-backend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           livenessProbe:
             httpGet:
               path: /health/liveness
               port: 3000
             initialDelaySeconds: 15
             periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
           env:

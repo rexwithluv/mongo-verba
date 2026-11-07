@@ -1,7 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 
-import { getAllQuotes, getRandomQuote, saveQuote } from './db.js'
+import { getAllQuotes, getRandomQuote, isDatabaseConnected, saveQuote } from './db.js'
 
 const app = express()
 
@@ -11,6 +11,15 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/health/liveness', async (req, res) => {
+  res.status(200).json({ status: 'OK' })
+})
+
+app.get('/health/readiness', async (req, res) => {
+  if (!isDatabaseConnected()) {
+    res.status(503).json({ status: 'DATABASE_UNAVAILABLE' })
+    return
+  }
+
   res.status(200).json({ status: 'OK' })
 })
 

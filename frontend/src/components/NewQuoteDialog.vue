@@ -3,7 +3,7 @@
   import { useConfigStore } from '@/stores/configStore'
   import axios from 'axios'
   import { Button, useToast } from 'primevue'
-  import { ref, watch, type Ref } from 'vue'
+  import { computed, ref, watch, type Ref } from 'vue'
 
   const isVisible: Ref<boolean | undefined> = defineModel('isVisible')
 
@@ -17,7 +17,15 @@
     note: '',
   })
 
+  const isSaving = ref(false)
+  const canSave = computed(() => newQuote.value.quote.trim() !== '' && !isSaving.value)
+
   const createQuote = async () => {
+    if (!canSave.value) {
+      return
+    }
+
+    isSaving.value = true
     try {
       await axios.post(`${apiBaseUrl}/quotes`, newQuote.value)
       toast.add({
@@ -26,16 +34,21 @@
         detail: 'Quote saved successfully',
         life: 5000,
       })
-    } catch (error: any) {
+      isVisible.value = false
+    } catch (error: unknown) {
+      const detail = axios.isAxiosError(error)
+        ? (error.response?.data?.message ?? 'Could not reach the server. Please try again.')
+        : 'Unexpected error. Please try again.'
+
       toast.add({
         severity: 'error',
         summary: 'Error saving quote.',
-        detail: error.response.data.message,
+        detail,
         life: 5000,
       })
+    } finally {
+      isSaving.value = false
     }
-
-    isVisible.value = false
   }
 
   watch(isVisible, (newValue) => {
@@ -75,7 +88,13 @@
       </div>
 
       <div class="form-actions">
-        <Button label="Save quote" severity="contrast" @click="createQuote" />
+        <Button
+          label="Save quote"
+          severity="contrast"
+          :disabled="!canSave"
+          :loading="isSaving"
+          @click="createQuote"
+        />
       </div>
     </div>
   </Dialog>

@@ -31,7 +31,7 @@
     docker compose up -d --build
     ```
 
-The frontend is available at `http://localhost:2319` and the backend API is available at `http://localhost:3000`
+The frontend is available at `http://localhost:5173` and the backend API is available at `http://localhost:3000`
 
 ### Production (using Kubernetes)
 

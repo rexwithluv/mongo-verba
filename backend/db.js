@@ -8,7 +8,7 @@ const DB_USERNAME = process.env.MONGO_USERNAME
 const DB_PASSWORD = process.env.MONGO_PASSWORD
 
 const MONGO_HOST = IS_DEVELOPMENT ? 'mongodb' : 'mongodb-service.mongo-verba.svc.cluster.local'
-const mongoUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${MONGO_HOST}:27017`
+const mongoUri = `mongodb://${encodeURIComponent(DB_USERNAME)}:${encodeURIComponent(DB_PASSWORD)}@${MONGO_HOST}:27017`
 
 try {
   await mongoose.connect(mongoUri, { dbName: DB_NAME })
@@ -16,6 +16,10 @@ try {
 } catch (e) {
   console.error(`Backend no logró conectarse con MongoDB: ${e.message}`)
   process.exit(1)
+}
+
+export function isDatabaseConnected() {
+  return mongoose.connection.readyState === mongoose.ConnectionStates.connected
 }
 
 export async function getAllQuotes() {
