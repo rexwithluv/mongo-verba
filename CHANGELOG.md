@@ -1,3 +1,10 @@
+## [1.6.4](https://github.com/rexwithluv/mongo-verba/compare/v1.6.3...v1.6.4) (2026-11-07)
+
+
+### Bug Fixes
+
+* **k8s:** replace broken mongo liveness probe with tcp liveness and mongosh readiness ([ee51f3d](https://github.com/rexwithluv/mongo-verba/commit/ee51f3d5447327105b11520c2b244c86389c3d40))
+
 ## [1.6.3](https://github.com/rexwithluv/mongo-verba/compare/v1.6.2...v1.6.3) (2026-04-03)
 
 
