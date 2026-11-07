@@ -8,10 +8,19 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 const isDevelopment = process.env.VITE_ENVIRONMENT === 'development'
 const baseUrl = isDevelopment ? '/' : '/mongo-verba/'
+const apiProxyTarget = process.env.VITE_API_PROXY_TARGET ?? 'http://localhost:3000'
 
 // https://vite.dev/config/
 export default defineConfig({
   base: baseUrl,
+  server: {
+    proxy: {
+      '/api/mongo-verba': {
+        target: apiProxyTarget,
+        rewrite: (path) => path.replace(/^\/api\/mongo-verba/, ''),
+      },
+    },
+  },
   plugins: [
     vue(),
     vueDevTools(),

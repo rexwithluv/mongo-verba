@@ -1,19 +1,25 @@
 <script setup lang="ts">
+  import LoginDialog from '@/components/LoginDialog.vue'
   import NewQuoteDialog from '@/components/NewQuoteDialog.vue'
   import QuotePanel from '@/components/QuotePanel.vue'
   import type { Quote } from '@/models/Quote'
+  import { useAuthStore } from '@/stores/authStore'
   import { useConfigStore } from '@/stores/configStore'
   import axios from 'axios'
+  import { storeToRefs } from 'pinia'
+  import { useToast } from 'primevue'
   import { onMounted, onUnmounted, type Ref, ref } from 'vue'
 
-  const enableInsertQuote = import.meta.env.VITE_ENABLE_INSERT_QUOTE === 'true'
-
   const configStore = useConfigStore()
+  const authStore = useAuthStore()
+  const { isAuthenticated } = storeToRefs(authStore)
+  const toast = useToast()
 
   const quote: Ref<Quote> = ref({} as Quote)
   const apiBaseUrl = configStore.apiBaseUrl
 
   const showNewQuoteDialog = ref(false)
+  const showLoginDialog = ref(false)
 
   const isLoadingQuote = ref(false)
 
@@ -48,19 +54,52 @@
     }
   }
 
+  // Inserting needs a session: ask for the password first if there is none.
   const openNewQuoteDialog = () => {
+    if (isAuthenticated.value) {
+      showNewQuoteDialog.value = true
+    } else {
+      showLoginDialog.value = true
+    }
+  }
+
+  // After logging in, open the new quote dialog unless it is already open
+  // (the session expired while it was being filled in).
+  const onAuthenticated = () => {
     showNewQuoteDialog.value = true
   }
 
+  const onSessionExpired = () => {
+    toast.add({
+      severity: 'warn',
+      summary: 'Sesión caducada',
+      detail: 'Vuelve a iniciar sesión para guardar la frase.',
+      life: 5000,
+    })
+    showLoginDialog.value = true
+  }
+
+  const logout = async () => {
+    try {
+      await authStore.logout()
+      toast.add({ severity: 'info', summary: 'Sesión cerrada', life: 3000 })
+    } catch (error) {
+      console.error('Error logging out:', error)
+    }
+  }
+
   const handleKeyPress = async (event: KeyboardEvent) => {
-    if (showNewQuoteDialog.value) {
+    if (showNewQuoteDialog.value || showLoginDialog.value) {
       return
     }
 
     const keyCode = event.code
-    if (keyCode === 'KeyI' && enableInsertQuote) {
+    if (keyCode === 'KeyI') {
       event.preventDefault()
       openNewQuoteDialog()
+    } else if (keyCode === 'KeyL' && isAuthenticated.value) {
+      event.preventDefault()
+      await logout()
     } else if (keyCode === 'Space') {
       event.preventDefault()
       await changeQuote()
@@ -69,7 +108,7 @@
 
   onMounted(async () => {
     window.addEventListener('keydown', handleKeyPress)
-    await changeQuote()
+    await Promise.all([changeQuote(), authStore.checkSession()])
   })
   onUnmounted(() => {
     window.removeEventListener('keydown', handleKeyPress)
@@ -77,13 +116,14 @@
 </script>
 
 <template>
-  <NewQuoteDialog v-model:is-visible="showNewQuoteDialog" />
+  <NewQuoteDialog v-model:is-visible="showNewQuoteDialog" @session-expired="onSessionExpired" />
+  <LoginDialog v-model:is-visible="showLoginDialog" @authenticated="onAuthenticated" />
 
   <div class="main-layout">
     <div class="header-section">
       <h1>Mongo Verba</h1>
       <p class="tagline">
-        Developed with <3 by <a href="https://github.com/rexwithluv/">@rexwithluv</a>
+        Hecho con <3 por <a href="https://github.com/rexwithluv/">@rexwithluv</a>
       </p>
     </div>
 
@@ -93,23 +133,34 @@
 
     <footer class="footer-section">
       <div class="pc-instructions">
-        <p class="instructions">Press <span class="key-highlight">Space</span> for random quote</p>
-        <p class="instructions" v-if="enableInsertQuote">
-          Press <span class="key-highlight">I</span> to insert new quote
+        <p class="instructions">
+          Pulsa <span class="key-highlight">Espacio</span> para ver otra frase
+        </p>
+        <p class="instructions">
+          Pulsa <span class="key-highlight">I</span> para añadir una frase
+        </p>
+        <p class="instructions" v-if="isAuthenticated">
+          Pulsa <span class="key-highlight">L</span> para cerrar sesión
         </p>
       </div>
 
       <div class="mobile-buttons">
         <Button
-          label="Insert new quote"
-          aria-label="Insert new quote"
+          label="Añadir frase"
+          aria-label="Añadir frase"
           severity="secondary"
-          v-if="enableInsertQuote"
           @click="openNewQuoteDialog"
         />
         <Button
-          label="Get random quote"
-          aria-label="Get random quote"
+          v-if="isAuthenticated"
+          label="Cerrar sesión"
+          aria-label="Cerrar sesión"
+          severity="secondary"
+          @click="logout"
+        />
+        <Button
+          label="Otra frase"
+          aria-label="Otra frase"
           severity="secondary"
           @click="changeQuote"
         />

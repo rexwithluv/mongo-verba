@@ -10,8 +10,6 @@ COPY . .
 
 ARG VITE_ENVIRONMENT
 
-ARG VITE_ENABLE_INSERT_QUOTE=true
-
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:1.31-alpine

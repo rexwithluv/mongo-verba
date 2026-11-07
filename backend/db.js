@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 import Quote from './models/Quote.js'
 
-const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
+export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 
-const DB_NAME = process.env.DB_NAME
+export const DB_NAME = process.env.DB_NAME
 const DB_USERNAME = process.env.MONGO_USERNAME
 const DB_PASSWORD = process.env.MONGO_PASSWORD
 
@@ -26,13 +26,16 @@ export function isDatabaseConnected() {
   return mongoose.connection.readyState === mongoose.ConnectionStates.connected
 }
 
-export async function getAllQuotes() {
-  console.debug('Run getAllQuotes() function')
-  const quotes = await Quote.find()
+export function getMongoClient() {
+  return mongoose.connection.getClient()
+}
 
-  console.debug('Quotes: ', quotes)
+export async function getAllQuotes({ includeDisabled = false } = {}) {
+  if (includeDisabled) {
+    return Quote.find()
+  }
 
-  return quotes
+  return Quote.find({ enabled: true }).select('-enabled')
 }
 
 export async function getRandomQuote(excludeId) {

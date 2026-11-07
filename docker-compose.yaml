@@ -22,7 +22,9 @@ services:
       DB_NAME: mongo-verba
       MONGO_USERNAME: root
       MONGO_PASSWORD: root
-      ENABLE_INSERT_QUOTE: true
+      # Development password: mongo-verba-dev ($ is escaped as $$ for Compose)
+      ADMIN_PASSWORD_HASH: 'scrypt$$32768$$8$$1$$AeQAnZGhOZcUpdHP7SorXA==$$/SN/i0rIy49R4UrCpcpkBI1vWPvBL6h6JPNypu8HIFmoKRBdwhftUBLESD8lAlvH0MIi8j7KjAkf5Jb1LmWI/g=='
+      SESSION_SECRET: development-only-session-secret-change-me
     depends_on:
       - mongodb
     command: npm run dev
@@ -39,7 +41,7 @@ services:
     image: node:22-alpine
     environment:
       VITE_ENVIRONMENT: development
-      VITE_ENABLE_INSERT_QUOTE: true
+      VITE_API_PROXY_TARGET: http://backend:3000
     container_name: frontend-mongo-verba
     ports:
       - 5173:5173
