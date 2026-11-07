@@ -10,6 +10,12 @@
       }
     ],
     [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "sed -i -E 's#(ghcr\\.io/rexwithluv/mongo-verba-[a-z]+):[^[:space:]]+#\\1:${nextRelease.version}#' k8s/deployment.yaml"
+      }
+    ],
+    [
       "@semantic-release/github",
       {
         "addReleases": false,
@@ -21,7 +27,7 @@
     [
       "@semantic-release/git",
       {
-        "assets": ["CHANGELOG.md"],
+        "assets": ["CHANGELOG.md", "k8s/deployment.yaml"],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ]
