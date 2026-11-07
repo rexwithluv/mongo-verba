@@ -15,24 +15,37 @@
 
   const showNewQuoteDialog = ref(false)
 
-  const getRandomQuote = async () => {
+  const isLoadingQuote = ref(false)
+
+  const getRandomQuote = async (excludeId?: string): Promise<Quote | undefined> => {
     try {
-      const response = await axios.get(`${apiBaseUrl}/quotes/random`)
+      const response = await axios.get<Quote>(`${apiBaseUrl}/quotes/random`, {
+        params: excludeId ? { exclude: excludeId } : undefined,
+      })
       return response.data
     } catch (e) {
-      console.log(`Error: ${e}`)
+      // 404 means there is no other enabled quote: keep the current one.
+      if (!axios.isAxiosError(e) || e.response?.status !== 404) {
+        console.error('Error getting random quote:', e)
+      }
+      return undefined
     }
   }
 
   const changeQuote = async () => {
-    const actualQuote = quote.value
-    let newQuote = await getRandomQuote()
-
-    while (actualQuote.quote === newQuote.quote) {
-      newQuote = await getRandomQuote()
+    if (isLoadingQuote.value) {
+      return
     }
 
-    quote.value = newQuote
+    isLoadingQuote.value = true
+    try {
+      const newQuote = await getRandomQuote(quote.value._id)
+      if (newQuote) {
+        quote.value = newQuote
+      }
+    } finally {
+      isLoadingQuote.value = false
+    }
   }
 
   const openNewQuoteDialog = () => {
@@ -55,8 +68,8 @@
   }
 
   onMounted(async () => {
-    quote.value = await getRandomQuote()
     window.addEventListener('keydown', handleKeyPress)
+    await changeQuote()
   })
   onUnmounted(() => {
     window.removeEventListener('keydown', handleKeyPress)
