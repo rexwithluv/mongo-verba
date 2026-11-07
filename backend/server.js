@@ -1,5 +1,6 @@
 import cors from 'cors'
 import express from 'express'
+import { isValidObjectId } from 'mongoose'
 
 import { getAllQuotes, getRandomQuote, isDatabaseConnected, saveQuote } from './db.js'
 
@@ -33,8 +34,20 @@ app.get('/quotes', async (req, res) => {
 })
 
 app.get('/quotes/random', async (req, res) => {
+  const { exclude } = req.query
+
+  if (exclude !== undefined && !isValidObjectId(exclude)) {
+    res.status(400).json({ message: 'The exclude parameter must be a valid quote id.' })
+    return
+  }
+
   try {
-    const quote = await getRandomQuote()
+    const quote = await getRandomQuote(exclude)
+
+    if (!quote) {
+      res.status(404).json({ message: 'No quotes available.' })
+      return
+    }
 
     res.status(200).json(quote)
   } catch (e) {

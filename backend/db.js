@@ -31,10 +31,16 @@ export async function getAllQuotes() {
   return quotes
 }
 
-export async function getRandomQuote() {
+export async function getRandomQuote(excludeId) {
   console.debug('Run getRandomQuote(). Only return enabled = true quotes without enabled field')
+  const match = { enabled: true }
+
+  if (excludeId) {
+    match._id = { $ne: new mongoose.Types.ObjectId(excludeId) }
+  }
+
   const randomQuoteArray = await Quote.aggregate([
-    { $match: { enabled: true } },
+    { $match: match },
     { $sample: { size: 1 } },
     { $project: { enabled: 0 } },
   ])
