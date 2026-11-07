@@ -1,3 +1,20 @@
+# [2.0.0](https://github.com/rexwithluv/mongo-verba/compare/v1.6.7...v2.0.0) (2026-11-07)
+
+
+### Features
+
+* **backend:** add session-based admin authentication ([3732eaa](https://github.com/rexwithluv/mongo-verba/commit/3732eaa4556996205796cc8257144f97c9cc9520))
+* **frontend:** add login dialog for inserting quotes ([3647557](https://github.com/rexwithluv/mongo-verba/commit/3647557e718ccf22b95d3305a4ea4a6229641c5f))
+* **frontend:** show the clock without seconds ([eb2c2a3](https://github.com/rexwithluv/mongo-verba/commit/eb2c2a30232ffa2f4d419002a94be0b7b324f81e))
+* **frontend:** translate the interface to Spanish ([c7bdc3c](https://github.com/rexwithluv/mongo-verba/commit/c7bdc3ce60cff2fced4ec71852b3c63c922cade3))
+
+
+### BREAKING CHANGES
+
+* **backend:** the backend needs the admin-password-hash and
+session-secret keys in the secrets Secret, and inserting quotes now
+requires logging in.
+
 ## [1.6.7](https://github.com/rexwithluv/mongo-verba/compare/v1.6.6...v1.6.7) (2026-11-07)
 
 

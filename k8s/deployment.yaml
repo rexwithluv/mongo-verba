@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/rexwithluv/mongo-verba-backend:1.6.7
+          image: ghcr.io/rexwithluv/mongo-verba-backend:2.0.0
           ports:
             - containerPort: 3000
           securityContext:
@@ -99,7 +99,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/rexwithluv/mongo-verba-frontend:1.6.7
+          image: ghcr.io/rexwithluv/mongo-verba-frontend:2.0.0
           ports:
             - containerPort: 8080
           securityContext:
