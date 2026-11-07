@@ -123,7 +123,7 @@
     <div class="header-section">
       <h1>Mongo Verba</h1>
       <p class="tagline">
-        Developed with <3 by <a href="https://github.com/rexwithluv/">@rexwithluv</a>
+        Hecho con <3 por <a href="https://github.com/rexwithluv/">@rexwithluv</a>
       </p>
     </div>
 
@@ -133,9 +133,11 @@
 
     <footer class="footer-section">
       <div class="pc-instructions">
-        <p class="instructions">Press <span class="key-highlight">Space</span> for random quote</p>
         <p class="instructions">
-          Press <span class="key-highlight">I</span> to insert new quote
+          Pulsa <span class="key-highlight">Espacio</span> para ver otra frase
+        </p>
+        <p class="instructions">
+          Pulsa <span class="key-highlight">I</span> para añadir una frase
         </p>
         <p class="instructions" v-if="isAuthenticated">
           Pulsa <span class="key-highlight">L</span> para cerrar sesión
@@ -144,8 +146,8 @@
 
       <div class="mobile-buttons">
         <Button
-          label="Insert new quote"
-          aria-label="Insert new quote"
+          label="Añadir frase"
+          aria-label="Añadir frase"
           severity="secondary"
           @click="openNewQuoteDialog"
         />
@@ -157,8 +159,8 @@
           @click="logout"
         />
         <Button
-          label="Get random quote"
-          aria-label="Get random quote"
+          label="Otra frase"
+          aria-label="Otra frase"
           severity="secondary"
           @click="changeQuote"
         />

@@ -33,8 +33,8 @@
       await axios.post(`${apiBaseUrl}/quotes`, newQuote.value)
       toast.add({
         severity: 'success',
-        summary: 'Quote saved',
-        detail: 'Quote saved successfully',
+        summary: 'Frase guardada',
+        detail: 'La frase se ha guardado correctamente.',
         life: 5000,
       })
       isVisible.value = false
@@ -47,12 +47,13 @@
       }
 
       const detail = axios.isAxiosError(error)
-        ? (error.response?.data?.message ?? 'Could not reach the server. Please try again.')
-        : 'Unexpected error. Please try again.'
+        ? (error.response?.data?.message ??
+          'No se pudo conectar con el servidor. Inténtalo de nuevo.')
+        : 'Error inesperado. Inténtalo de nuevo.'
 
       toast.add({
         severity: 'error',
-        summary: 'Error saving quote.',
+        summary: 'No se pudo guardar la frase',
         detail,
         life: 5000,
       })
@@ -73,10 +74,10 @@
 </script>
 
 <template>
-  <Dialog v-model:visible="isVisible" header="New quote ^^" modal dismissableMask>
+  <Dialog v-model:visible="isVisible" header="Nueva frase ^^" modal dismissableMask>
     <div class="form-content">
       <div class="form-field">
-        <label for="quote-text" class="field-label">Quote</label>
+        <label for="quote-text" class="field-label">Frase</label>
         <Textarea
           id="quote-text"
           v-model="newQuote.quote"
@@ -87,18 +88,18 @@
       </div>
 
       <div class="form-field">
-        <label for="quote-author" class="field-label">Author (optional)</label>
+        <label for="quote-author" class="field-label">Autor/a (opcional)</label>
         <InputText id="quote-author" v-model="newQuote.author" class="p-inputtext-line" />
       </div>
 
       <div class="form-field">
-        <label for="quote-note" class="field-label">Note (optional)</label>
+        <label for="quote-note" class="field-label">Nota (opcional)</label>
         <Textarea id="quote-note" v-model="newQuote.note" class="p-inputtext-line" autoResize />
       </div>
 
       <div class="form-actions">
         <Button
-          label="Save quote"
+          label="Guardar frase"
           severity="contrast"
           :disabled="!canSave"
           :loading="isSaving"
