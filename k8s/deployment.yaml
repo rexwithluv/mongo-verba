@@ -20,10 +20,13 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/rexwithluv/mongo-verba-backend:latest
-          imagePullPolicy: Always
+          image: ghcr.io/rexwithluv/mongo-verba-backend:1.6.6
           ports:
             - containerPort: 3000
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
           livenessProbe:
             httpGet:
               path: /health/liveness
@@ -86,14 +89,16 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/rexwithluv/mongo-verba-frontend:latest
-          imagePullPolicy: Always
+          image: ghcr.io/rexwithluv/mongo-verba-frontend:1.6.6
           ports:
-            - containerPort: 80
+            - containerPort: 8080
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
           livenessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 8080
             initialDelaySeconds: 10
             periodSeconds: 10
           resources:

@@ -18,6 +18,10 @@ try {
   process.exit(1)
 }
 
+export async function closeDatabase() {
+  await mongoose.disconnect()
+}
+
 export function isDatabaseConnected() {
   return mongoose.connection.readyState === mongoose.ConnectionStates.connected
 }
