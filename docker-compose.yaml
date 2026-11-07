@@ -50,6 +50,3 @@ services:
     working_dir: /app
     volumes:
       - ./frontend:/app
-
-networks:
-  mongo-naga-net:
