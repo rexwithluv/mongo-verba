@@ -59,6 +59,16 @@ spec:
                 secretKeyRef:
                   name: secrets
                   key: mongo-admin-password
+            - name: ADMIN_PASSWORD_HASH
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: admin-password-hash
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: session-secret
           resources:
             requests:
               memory: '128Mi'

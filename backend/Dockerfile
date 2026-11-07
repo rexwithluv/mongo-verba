@@ -14,8 +14,6 @@ RUN apk upgrade --no-cache \
   && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
     /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack
 
-ENV ENABLE_INSERT_QUOTE=true
-
 COPY . .
 
 USER node
