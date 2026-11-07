@@ -1,3 +1,13 @@
+## [1.6.7](https://github.com/rexwithluv/mongo-verba/compare/v1.6.6...v1.6.7) (2026-11-07)
+
+
+### Bug Fixes
+
+* **backend:** run node directly and shut down gracefully ([54dfcf6](https://github.com/rexwithluv/mongo-verba/commit/54dfcf607b65b5c349523c11d2ec56e0ea5e6d95))
+* **deps:** update vulnerable dependencies ([923cdd0](https://github.com/rexwithluv/mongo-verba/commit/923cdd072331ae189022d129e5729bb7722f9b90))
+* **frontend:** apply Alpine security patches to the nginx image ([55ba899](https://github.com/rexwithluv/mongo-verba/commit/55ba8994f62bf61a2e6669a8e993e5e9221de0c6))
+* **k8s:** run frontend nginx and backend as non-root ([a9ccf95](https://github.com/rexwithluv/mongo-verba/commit/a9ccf958a3b232ad105738faefb4f4fd5df31ef7))
+
 ## [1.6.6](https://github.com/rexwithluv/mongo-verba/compare/v1.6.5...v1.6.6) (2026-11-07)
 
 
