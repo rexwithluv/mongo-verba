@@ -31,7 +31,7 @@
     docker compose up -d --build
     ```
 
-The frontend is available at `http://localhost:5173` and the backend API is available at `http://localhost:3000`
+The frontend is available at `http://localhost:5173` and the backend API is available at `http://localhost:3000`. In development the password to insert quotes is `mongo-verba-dev`.
 
 ### Production (using Kubernetes)
 
@@ -41,10 +41,12 @@ The frontend is available at `http://localhost:5173` and the backend API is avai
     cd mongo-verba
     ```
 
-2. Setup the secrets:
+2. Setup the secrets. `admin-password-hash` is the hash of the password used to insert quotes and `session-secret` signs the session cookie:
 
     ```bash
     cp k8s/secrets.example.yaml k8s/secrets.yaml
+    (cd backend && npm run hash-password)   # value for admin-password-hash
+    openssl rand -base64 48                 # value for session-secret
     nano k8s/secrets.yaml
     ```
 
@@ -62,7 +64,7 @@ The frontend is available at `http://localhost:5173` and the backend API is avai
 
 The application will be available at `https://your-domain.com/mongo-verba`
 
-Note: It's possible to enable or disable quote insertion independently on both the frontend and the backend. By default, it comes disabled on the backend and frontend. Edit the Dockerfiles according to your preference.
+Reading quotes is public. Inserting quotes (`POST /quotes`) and listing disabled ones (`GET /quotes?includeDisabled=true`) require logging in with the admin password: press `I` on the page.
 
 ## Scheduler (with Cron)
 
