@@ -2,7 +2,13 @@ import cors from 'cors'
 import express from 'express'
 import { isValidObjectId } from 'mongoose'
 
-import { getAllQuotes, getRandomQuote, isDatabaseConnected, saveQuote } from './db.js'
+import {
+  closeDatabase,
+  getAllQuotes,
+  getRandomQuote,
+  isDatabaseConnected,
+  saveQuote,
+} from './db.js'
 
 const app = express()
 
@@ -84,6 +90,18 @@ app.post('/quotes', async (req, res) => {
   }
 })
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Servidor API escuchando en el puerto ${PORT}`)
 })
+
+// As PID 1 in the container, node ignores SIGTERM unless it is handled.
+const shutdown = (signal) => {
+  console.log(`${signal} recibido, cerrando el servidor...`)
+  server.close(async () => {
+    await closeDatabase()
+    process.exit(0)
+  })
+}
+
+process.on('SIGTERM', shutdown)
+process.on('SIGINT', shutdown)
