@@ -1,13 +1,16 @@
 <script setup lang="ts">
   import type { Quote } from '@/models/Quote'
+  import { useAuthStore } from '@/stores/authStore'
   import { useConfigStore } from '@/stores/configStore'
   import axios from 'axios'
   import { Button, useToast } from 'primevue'
   import { computed, ref, watch, type Ref } from 'vue'
 
   const isVisible: Ref<boolean | undefined> = defineModel('isVisible')
+  const emit = defineEmits<{ sessionExpired: [] }>()
 
   const apiStore = useConfigStore()
+  const authStore = useAuthStore()
   const toast = useToast()
 
   const apiBaseUrl = apiStore.apiBaseUrl
@@ -36,6 +39,13 @@
       })
       isVisible.value = false
     } catch (error: unknown) {
+      // The session expired: keep the dialog (and the text) and ask to log in again.
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        authStore.markSessionExpired()
+        emit('sessionExpired')
+        return
+      }
+
       const detail = axios.isAxiosError(error)
         ? (error.response?.data?.message ?? 'Could not reach the server. Please try again.')
         : 'Unexpected error. Please try again.'
@@ -63,7 +73,6 @@
 </script>
 
 <template>
-  <Toast />
   <Dialog v-model:visible="isVisible" header="New quote ^^" modal dismissableMask>
     <div class="form-content">
       <div class="form-field">
