@@ -1,3 +1,11 @@
+## [1.6.5](https://github.com/rexwithluv/mongo-verba/compare/v1.6.4...v1.6.5) (2026-11-07)
+
+
+### Bug Fixes
+
+* **backend:** add readiness probe and encode mongo credentials ([b07fd7a](https://github.com/rexwithluv/mongo-verba/commit/b07fd7aae61bb6404e1343d2362583bf8592bf0a))
+* **frontend:** keep quote dialog open on errors ([b6c6574](https://github.com/rexwithluv/mongo-verba/commit/b6c657494edec4b4498f3fc1005a9163748be59a))
+
 ## [1.6.4](https://github.com/rexwithluv/mongo-verba/compare/v1.6.3...v1.6.4) (2026-11-07)
 
 
