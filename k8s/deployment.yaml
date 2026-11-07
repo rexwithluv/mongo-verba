@@ -24,6 +24,10 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
           livenessProbe:
             httpGet:
               path: /health/liveness
@@ -89,11 +93,14 @@ spec:
           image: ghcr.io/rexwithluv/mongo-verba-frontend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 8080
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
           livenessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 8080
             initialDelaySeconds: 10
             periodSeconds: 10
           resources:
